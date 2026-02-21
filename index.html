@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zeen Studio — Beauty. Designed.</title>
+  <meta name="description" content="Zeen Studio designs minimal, premium brand identities — logos, brand kits, and creative design." />
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --fg:#f6f7fb;
+      --muted:rgba(246,247,251,.72);
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.10);
+      --glow:rgba(255,255,255,.14);
+      --radius:20px;
+      --max:1160px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 700px at 70% 10%, rgba(255,255,255,.10), transparent 60%),
+                 radial-gradient(900px 500px at 20% 0%, rgba(255,255,255,.08), transparent 55%),
+                 var(--bg);
+      color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.45;
+      letter-spacing:.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(14px);
+      background:rgba(11,12,16,.72);
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav .inner{display:flex; align-items:center; justify-content:space-between; height:150px}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{height:140px;width:auto;border:none;padding:0;background:transparent;box-shadow:none;}
+    .brand strong{font-weight:700; letter-spacing:.6px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+
+    .links{display:flex; gap:18px; align-items:center}
+    .links a{font-size:14px; color:var(--muted)}
+    .links a:hover{color:var(--fg)}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.06);
+      color:var(--fg);
+      font-size:14px;
+      transition:transform .18s ease, background .18s ease, border-color .18s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.10); border-color:rgba(255,255,255,.18)}
+    .btn.primary{background:rgba(255,255,255,.92); color:#0b0c10; border-color:rgba(255,255,255,.92)}
+    .btn.primary:hover{background:#fff}
+    .btn.ghost{background:transparent}
+
+    /* Floating WhatsApp (placeholder link) */
+    .fab{
+      position:fixed; right:18px; bottom:18px; z-index:60;
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+
+    /* Hero */
+    .hero{padding:64px 0 34px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:26px; align-items:stretch}
+    .kicker{color:var(--muted); font-size:14px; text-transform:uppercase; letter-spacing:2.4px}
+    h1{font-size:56px; line-height:1.04; margin:14px 0 14px}
+    .lead{color:var(--muted); font-size:18px; max-width:62ch}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px}
+
+    .hero-card{
+      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      box-shadow: 0 30px 70px rgba(0,0,0,.40);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:radial-gradient(600px 280px at 20% 10%, rgba(255,255,255,.18), transparent 55%),
+                 radial-gradient(520px 220px at 90% 30%, rgba(255,255,255,.12), transparent 60%);
+      pointer-events:none;
+    }
+    .mock{
+      position:relative;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.26);
+      overflow:hidden;
+    }
+    .mock-top{display:flex; gap:8px; padding:12px; border-bottom:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04)}
+    .dot{width:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.18)}
+    .mock-body{padding:16px}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); border-radius:999px; color:var(--muted); font-size:12px}
+    .mini-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+    .mini{
+height:88px;
+width:100%;
+object-fit:cover;
+border-radius:16px;
+border:1px solid rgba(255,255,255,.10);
+} background:rgba(255,255,255,.05)}
+
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px}
+    .stat{border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04); border-radius:16px; padding:12px}
+    .stat strong{display:block; font-size:18px}
+    .stat span{display:block; color:var(--muted); font-size:12px; margin-top:2px}
+
+    /* Sections */
+    section{padding:54px 0}
+    .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin-bottom:18px}
+    .section-head h2{margin:0; font-size:28px}
+    .section-head p{margin:0; color:var(--muted); max-width:70ch}
+
+    .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+    .card{
+      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.05);
+      padding:18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+
+    .badge{display:inline-flex; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); font-size:12px; color:var(--muted)}
+
+    /* Work */
+    .work{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .tile{
+      height:240px;
+      border-radius:var(--radius);
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
+    }
+    .tile img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(110%) contrast(105%)}
+    .tile:after{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, transparent 45%, rgba(11,12,16,.88) 100%);
+      pointer-events:none;
+    }
+    .tile .label{position:absolute; left:16px; bottom:16px; right:16px; display:flex; justify-content:space-between; gap:10px; align-items:center}
+    .tile .label strong{font-size:14px}
+    .tile .label span{font-size:12px; color:var(--muted)}
+
+    /* Pricing */
+    .price{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .plan{position:relative}
+    .plan .top{display:flex; justify-content:space-between; align-items:flex-start}
+    .plan h3{margin:0; font-size:16px}
+    .plan .amount{font-size:34px; margin:14px 0 6px}
+    .plan .amount small{font-size:14px; color:var(--muted)}
+    ul{margin:12px 0 0; padding:0; list-style:none; color:var(--muted); font-size:14px}
+    li{padding:8px 0; border-top:1px dashed rgba(255,255,255,.12)}
+    li:first-child{border-top:0}
+    .plan.featured{background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)); border-color:rgba(255,255,255,.18)}
+
+    /* Testimonials */
+    .quote{display:flex; flex-direction:column; gap:10px}
+    .quote p{font-size:14px}
+    .quote footer{padding:0; color:rgba(246,247,251,.62)}
+
+    /* FAQ */
+    details{border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.04); border-radius:18px; padding:14px 16px}
+    summary{cursor:pointer; font-weight:600}
+    details p{margin:10px 0 0; color:var(--muted); font-size:14px}
+
+    /* Contact */
+    .contact{
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.16);
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      padding:22px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .contact h2{margin:0; font-size:26px}
+    .contact p{margin:6px 0 0; color:var(--muted)}
+
+    .form{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .field{display:flex; flex-direction:column; gap:8px}
+    .field label{font-size:12px; color:rgba(246,247,251,.70)}
+    input, textarea{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.26);
+      padding:12px 12px;
+      color:var(--fg);
+      outline:none;
+    }
+    textarea{min-height:120px; resize:vertical}
+    input:focus, textarea:focus{border-color:rgba(255,255,255,.22)}
+
+    footer{padding:26px 0 40px; color:rgba(246,247,251,.55); font-size:13px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr;}
+      h1{font-size:44px}
+      .grid3,.work,.price{grid-template-columns:1fr}
+      .grid2,.form{grid-template-columns:1fr}
+      .links{display:none}
+      .fab{right:14px; bottom:14px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- WhatsApp button (replace number later) -->
+  <a class="btn primary fab" href="https://wa.me/+919946878183" target="_blank" rel="noreferrer">WhatsApp</a>
+
+  <header class="nav">
+    <div class="container">
+      <div class="inner">
+        <a class="brand" href="#top" aria-label="Zeen Studio">
+          <img class="logo" src="logo.svg" alt="Zeen Studio logo" />
+        </a>
+
+        <nav class="links" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#work">Work</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#about">About</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div style="display:flex; gap:10px; align-items:center">
+          <a class="btn ghost" href="mailto:info@zeenstudio.com">Email</a>
+          <a class="btn primary" href="#contact">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container">
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">Beauty • Premium • Modern</div>
+            <h1>Design that looks<br/>expensive.</h1>
+            <p class="lead">Zeen Studio designs minimal, premium brand identities for businesses in the UAE and India. From first concept to final files, we keep the process clear, fast, and polished — so your brand looks confident everywhere.</p>
+
+            <div class="cta">
+              <a class="btn primary" href="#contact">Request a Quote</a>
+              <a class="btn" href="#work">View Work</a>
+              <a class="btn ghost" href="#pricing">See Packages</a>
+              <span class="btn" style="pointer-events:none; opacity:.85">info@zeenstudio.com</span>
+            </div>
+
+            <div class="stats">
+              <div class="stat"><strong>2–4 days</strong><span>Typical logo delivery</span></div>
+              <div class="stat"><strong>Brand-ready</strong><span>Files for print & social</span></div>
+              <div class="stat"><strong>Minimal first</strong><span>Clean, timeless style</span></div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="mock" aria-label="Website mock preview">
+              <div class="mock-top">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              </div>
+              <div class="mock-body">
+                <span class="chip">Logo • Identity • Social • Print</span>
+                <div class="mini-grid">
+                  <img class="mini" src="medimart.PNG" alt="MediMart Logo" />
+                  <img class="mini" src="cha.PNG" alt="CHA Branding" />
+                  <img class="mini" src="karman.PNG" alt="Karman Logo" />
+                  <img class="mini" src="riana.PNG" alt="Social Media Design" />
+                </div>
+                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+                  <span class="badge">Fast delivery</span>
+                  <span class="badge">Premium spacing</span>
+                  <span class="badge">Mockups included</span>
+                </div>
+              </div>
+            </div>
+            <div style="position:relative; margin-top:14px; color:var(--muted); font-size:13px">
+              A selection of our recent branding and design works.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services">
+        <div class="section-head">
+          <div>
+            <h2>Services</h2>
+            <p>Everything you need to look premium, consistent, and professional — online and offline.</p>
+          </div>
+          <a class="btn" href="#pricing">View packages</a>
+        </div>
+
+        <div class="grid3">
+          <div class="card"><span class="badge">01</span><h3>Logo Design</h3><p>Minimal marks and wordmarks designed to work on signage, uniforms, packaging, and social media. Delivered in multiple formats.</p></div>
+          <div class="card"><span class="badge">02</span><h3>Brand Identity</h3><p>A complete visual system: colour palette, typography pairing, logo usage rules, and brand assets for a consistent look.</p></div>
+          <div class="card"><span class="badge">03</span><h3>Social Media Creatives</h3><p>Post templates and campaign designs that match your brand — perfect for Instagram grids, stories, and ads.</p></div>
+          <div class="card"><span class="badge">04</span><h3>Print Design</h3><p>Business cards, flyers, posters, and menu designs — print-ready files with professional spacing and hierarchy.</p></div>
+          <div class="card"><span class="badge">05</span><h3>Brochures & Company Profiles</h3><p>Layouts that sell: structured content, clean typography, and a premium look for corporate presentations and brochures.</p></div>
+          <div class="card"><span class="badge">06</span><h3>Packaging & Labels</h3><p>Packaging concepts and label designs that look strong on shelves and in product photography.</p></div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section id="process">
+        <div class="section-head">
+          <div>
+            <h2>How it works</h2>
+            <p>A clean process that keeps everything simple: brief, concepts, refinement, and final delivery.</p>
+          </div>
+          <span class="badge">Clear milestones</span>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>01 — Brief & Direction</h3>
+            <p>We collect your requirements, references, and brand vibe. You’ll receive a clear direction before we start designing.</p>
+          </div>
+          <div class="card">
+            <h3>02 — Concepts</h3>
+            <p>We share initial logo/identity concepts with explanations. You choose one direction to refine.</p>
+          </div>
+          <div class="card">
+            <h3>03 — Refinement</h3>
+            <p>We improve balance, spacing, and usability. Revisions happen here until the final design feels premium.</p>
+          </div>
+          <div class="card">
+            <h3>04 — Final Files</h3>
+            <p>You receive print + social exports (PNG/JPG/PDF/SVG as applicable), plus basic usage guidance.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORK / PORTFOLIO (with sample designs) -->
+      <section id="work">
+        <div class="section-head">
+          <div>
+            <h2>Selected Work</h2>
+            <p>These are sample mockups so the site looks finished. Replace them with your real work anytime (MediMart, CHA, Karman, etc.).</p>
+          </div>
+          <a class="btn" href="#contact">Book a design slot</a>
+        </div>
+
+        <div class="work">
+          <div class="tile">
+            <img alt="MediMart logo mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%231b1c22'/><stop offset='1' stop-color='%23101115'/></linearGradient></defs><rect width='1200' height='800' fill='url(%23g)'/><circle cx='260' cy='220' r='140' fill='rgba(255,255,255,0.08)'/><circle cx='920' cy='260' r='180' fill='rgba(255,255,255,0.06)'/><rect x='120' y='140' width='960' height='520' rx='42' fill='rgba(255,255,255,0.05)' stroke='rgba(255,255,255,0.10)'/><text x='180' y='300' fill='rgba(255,255,255,0.92)' font-family='Arial' font-size='64' font-weight='700'>MediMart</text><text x='180' y='360' fill='rgba(255,255,255,0.70)' font-family='Arial' font-size='28'>Pharmacy &amp; Surgical Equipment</text><path d='M210 470c45-65 135-65 180 0c45 65-45 150-90 185c-45-35-135-120-90-185z' fill='rgba(255,255,255,0.14)'/><path d='M420 520h210' stroke='rgba(255,255,255,0.24)' stroke-width='10' stroke-linecap='round'/><path d='M420 560h320' stroke='rgba(255,255,255,0.16)' stroke-width='10' stroke-linecap='round'/><text x='180' y='625' fill='rgba(255,255,255,0.55)' font-family='Arial' font-size='20'>Sample mockup • Replace with real design</text></svg>"/>
+            <div class="label"><strong>MediMart</strong><span>Logo mockup</span></div>
+          </div>
+
+          <div class="tile">
+            <img alt="Brand identity kit mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%230c0d12'/><stop offset='1' stop-color='%231a1b20'/></linearGradient></defs><rect width='1200' height='800' fill='url(%23g)'/><rect x='120' y='120' width='960' height='560' rx='40' fill='rgba(255,255,255,0.05)' stroke='rgba(255,255,255,0.10)'/><rect x='180' y='200' width='420' height='260' rx='26' fill='rgba(255,255,255,0.06)'/><rect x='630' y='200' width='390' height='150' rx='26' fill='rgba(255,255,255,0.06)'/><rect x='630' y='370' width='390' height='90' rx='22' fill='rgba(255,255,255,0.06)'/><rect x='180' y='490' width='840' height='130' rx='28' fill='rgba(255,255,255,0.06)'/><text x='210' y='250' fill='rgba(255,255,255,0.90)' font-family='Arial' font-size='34' font-weight='700'>Brand Identity Kit</text><text x='210' y='295' fill='rgba(255,255,255,0.68)' font-family='Arial' font-size='20'>Colours • Typography • Rules • Assets</text><text x='660' y='250' fill='rgba(255,255,255,0.80)' font-family='Arial' font-size='26' font-weight='700'>Logo lockups</text><text x='660' y='405' fill='rgba(255,255,255,0.78)' font-family='Arial' font-size='22' font-weight='700'>Social templates</text><text x='210' y='550' fill='rgba(255,255,255,0.86)' font-family='Arial' font-size='28' font-weight='700'>Consistency across Instagram, print, and signage</text></svg>"/>
+            <div class="label"><strong>Brand Identity</strong><span>System kit</span></div>
+          </div>
+
+          <div class="tile">
+            <img alt="Social media templates mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23101115'/><stop offset='1' stop-color='%230b0c10'/></linearGradient></defs><rect width='1200' height='800' fill='url(%23g)'/><rect x='130' y='150' width='310' height='520' rx='40' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.10)'/><rect x='465' y='150' width='310' height='520' rx='40' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.10)'/><rect x='800' y='150' width='310' height='520' rx='40' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.10)'/><text x='170' y='230' fill='rgba(255,255,255,0.90)' font-family='Arial' font-size='26' font-weight='700'>Post 01</text><text x='170' y='265' fill='rgba(255,255,255,0.65)' font-family='Arial' font-size='18'>Minimal grid</text><text x='505' y='230' fill='rgba(255,255,255,0.90)' font-family='Arial' font-size='26' font-weight='700'>Post 02</text><text x='505' y='265' fill='rgba(255,255,255,0.65)' font-family='Arial' font-size='18'>Brand colours</text><text x='840' y='230' fill='rgba(255,255,255,0.90)' font-family='Arial' font-size='26' font-weight='700'>Post 03</text><text x='840' y='265' fill='rgba(255,255,255,0.65)' font-family='Arial' font-size='18'>Campaign</text><rect x='170' y='320' width='230' height='220' rx='24' fill='rgba(255,255,255,0.08)'/><rect x='505' y='320' width='230' height='140' rx='24' fill='rgba(255,255,255,0.08)'/><rect x='505' y='475' width='230' height='65' rx='20' fill='rgba(255,255,255,0.08)'/><rect x='840' y='320' width='230' height='220' rx='24' fill='rgba(255,255,255,0.08)'/><text x='170' y='625' fill='rgba(255,255,255,0.55)' font-family='Arial' font-size='20'>Sample social templates • Replace with real posts</text></svg>"/>
+            <div class="label"><strong>Social Templates</strong><span>Instagram ready</span></div>
+          </div>
+
+          <div class="tile">
+            <img alt="Business card mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='1200' height='800' fill='%230b0c10'/><rect x='160' y='180' width='560' height='360' rx='36' fill='rgba(255,255,255,0.07)' stroke='rgba(255,255,255,0.12)'/><rect x='520' y='320' width='520' height='360' rx='36' fill='rgba(255,255,255,0.05)' stroke='rgba(255,255,255,0.10)'/><text x='210' y='270' fill='rgba(255,255,255,0.88)' font-family='Arial' font-size='36' font-weight='700'>Zeen Studio</text><text x='210' y='320' fill='rgba(255,255,255,0.62)' font-family='Arial' font-size='18'>Beauty. Designed.</text><text x='210' y='400' fill='rgba(255,255,255,0.62)' font-family='Arial' font-size='18'>info@zeenstudio.com</text><text x='570' y='420' fill='rgba(255,255,255,0.80)' font-family='Arial' font-size='26' font-weight='700'>Business Card</text><text x='570' y='465' fill='rgba(255,255,255,0.62)' font-family='Arial' font-size='18'>Premium print layout</text></svg>"/>
+            <div class="label"><strong>Business Card</strong><span>Print-ready</span></div>
+          </div>
+
+          <div class="tile">
+            <img alt="Packaging label mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23101115'/><stop offset='1' stop-color='%231b1c22'/></linearGradient></defs><rect width='1200' height='800' fill='url(%23g)'/><rect x='180' y='160' width='840' height='520' rx='50' fill='rgba(255,255,255,0.05)' stroke='rgba(255,255,255,0.10)'/><rect x='260' y='240' width='420' height='360' rx='42' fill='rgba(255,255,255,0.06)'/><rect x='710' y='240' width='230' height='120' rx='28' fill='rgba(255,255,255,0.06)'/><rect x='710' y='380' width='230' height='220' rx='32' fill='rgba(255,255,255,0.06)'/><text x='300' y='310' fill='rgba(255,255,255,0.88)' font-family='Arial' font-size='34' font-weight='700'>Packaging</text><text x='300' y='350' fill='rgba(255,255,255,0.60)' font-family='Arial' font-size='18'>Label system + hierarchy</text><text x='740' y='315' fill='rgba(255,255,255,0.75)' font-family='Arial' font-size='22' font-weight='700'>Ingredients</text><text x='740' y='430' fill='rgba(255,255,255,0.75)' font-family='Arial' font-size='22' font-weight='700'>Info</text></svg>"/>
+            <div class="label"><strong>Packaging</strong><span>Label design</span></div>
+          </div>
+
+          <div class="tile">
+            <img alt="Motion poster mockup" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='1200' height='800' fill='%230b0c10'/><rect x='200' y='140' width='800' height='520' rx='52' fill='rgba(255,255,255,0.06)' stroke='rgba(255,255,255,0.10)'/><polygon points='560,340 560,460 680,400' fill='rgba(255,255,255,0.22)'/><text x='260' y='250' fill='rgba(255,255,255,0.88)' font-family='Arial' font-size='34' font-weight='700'>Motion Poster</text><text x='260' y='290' fill='rgba(255,255,255,0.60)' font-family='Arial' font-size='18'>Reels • Stories • Ads</text><text x='260' y='610' fill='rgba(255,255,255,0.55)' font-family='Arial' font-size='18'>Sample preview • Replace with your animations</text></svg>"/>
+            <div class="label"><strong>Motion Poster</strong><span>Reels</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing">
+        <div class="section-head">
+          <div>
+            <h2>Pricing</h2>
+            <p>Simple packages (starting prices). Final pricing depends on complexity and turnaround time.</p>
+          </div>
+          <span class="badge">Custom quotes available</span>
+        </div>
+
+        <div class="price">
+          <div class="card plan">
+            <div class="top"><h3>Basic Logo</h3><span class="badge">Starter</span></div>
+            <div class="amount">AED 150 <small>/ from</small></div>
+            <p style="margin:0; color:var(--muted)">A clean logo for small businesses and new brands.</p>
+            <ul>
+              <li>1 concept</li>
+              <li>2 revisions</li>
+              <li>Final files: PNG + JPG</li>
+              <li>Delivery: 2–3 days</li>
+            </ul>
+            <div style="margin-top:14px"><a class="btn" href="#contact">Choose Basic</a></div>
+          </div>
+
+          <div class="card plan featured">
+            <div class="top"><h3>Standard Logo</h3><span class="badge">Best value</span></div>
+            <div class="amount">AED 300 <small>/ from</small></div>
+            <p style="margin:0; color:var(--muted)">More exploration + stronger refinement.</p>
+            <ul>
+              <li>2 concepts</li>
+              <li>4 revisions</li>
+              <li>Final files: PNG + JPG + PDF</li>
+              <li>Delivery: 2–4 days</li>
+            </ul>
+            <div style="margin-top:14px"><a class="btn primary" href="#contact">Choose Standard</a></div>
+          </div>
+
+          <div class="card plan">
+            <div class="top"><h3>Premium Brand Kit</h3><span class="badge">Identity</span></div>
+            <div class="amount">AED 500 <small>/ from</small></div>
+            <p style="margin:0; color:var(--muted)">Logo + brand rules for consistency.</p>
+            <ul>
+              <li>2–3 concepts</li>
+              <li>Colour palette + typography pairing</li>
+              <li>Files: PNG/JPG/PDF/SVG</li>
+              <li>Delivery: 4–7 days</li>
+            </ul>
+            <div style="margin-top:14px"><a class="btn" href="#contact">Choose Premium</a></div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+          <span class="badge">Social media: 5 posts — AED 200</span>
+          <span class="badge">Social media: 10 posts — AED 350</span>
+          <span class="badge">Brochure: Bi-fold — AED 250</span>
+          <span class="badge">Brochure: Tri-fold — AED 350</span>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section id="testimonials">
+        <div class="section-head">
+          <div>
+            <h2>Client words</h2>
+            <p>Sample testimonials to make the site look complete. Replace with real feedback as you collect it.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card quote">
+            <span class="badge">Logo Design</span>
+            <p>“Very professional. The logo looks premium and the spacing is perfect. Fast delivery and clear communication.”</p>
+            <footer>— Client, UAE</footer>
+          </div>
+          <div class="card quote">
+            <span class="badge">Brand Identity</span>
+            <p>“The full brand kit made our Instagram and print materials consistent. Highly recommended for serious branding.”</p>
+            <footer>— Client, India</footer>
+          </div>
+          <div class="card quote">
+            <span class="badge">Social Creatives</span>
+            <p>“Templates are clean and easy to use. Now our posts look like a real brand, not random designs.”</p>
+            <footer>— Small Business Owner</footer>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-head">
+          <div>
+            <h2>About Zeen</h2>
+            <p>Zeen means “beautiful” in Arabic — and that’s our standard. We keep things minimal, sharp, and meaningful so your brand looks confident everywhere.</p>
+          </div>
+          <span class="badge">Beauty. Designed.</span>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Our style</h3>
+            <p>Modern, minimal, and premium. We focus on typography, spacing, and balance — because details are what make design feel expensive.</p>
+          </div>
+          <div class="card">
+            <h3>What you receive</h3>
+            <p>Final logo files, export formats, mockups, and simple usage guidance — so your brand stays consistent across every platform.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+            <p>Quick answers to common questions.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <details open>
+            <summary>What do you need from me to start?</summary>
+            <p>Your business name, what you do, preferred style, colour likes/dislikes, and 2–3 reference logos you admire.</p>
+          </details>
+          <details>
+            <summary>Do you deliver editable files?</summary>
+            <p>Yes. For Standard/Premium packages you can receive vector formats (PDF/SVG) depending on the package.</p>
+          </details>
+          <details>
+            <summary>How many revisions are included?</summary>
+            <p>It depends on the package. Basic includes 2 revisions; Standard includes 4 revisions; Premium includes more refinement as needed.</p>
+          </details>
+          <details>
+            <summary>Can you do urgent delivery?</summary>
+            <p>Yes, urgent delivery is possible depending on availability. Share your deadline and we’ll confirm.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- CONTACT + FORM -->
+      <section id="contact">
+        <div class="contact">
+          <div>
+            <h2>Let’s build your brand.</h2>
+            <p>Tell us what you need — logo, identity, social posts, brochure — we’ll reply with the best plan.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn" href="mailto:info@zeenstudio.com">info@zeenstudio.com</a>
+            <a class="btn primary" href="mailto:info@zeenstudio.com?subject=Quote%20Request%20-%20Zeen%20Studio&body=Hello%20Zeen%20Studio%2C%0A%0AI%20need%20help%20with%3A%20(logo%2Fbrand%20identity%2Fsocial%20posts%2Fbrochure)%0AIndustry%3A%20%0ABudget%3A%20%0ATimeline%3A%20%0A%0AThanks">Request Quote</a>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="card">
+          <h3 style="margin:0 0 10px">Quick Enquiry (sample form)</h3>
+          <p style="margin:0 0 16px; color:var(--muted)">This is a front-end preview form. Your developer can connect it to email or a form tool.</p>
+
+          <form class="form" onsubmit="event.preventDefault(); alert('Preview only — connect form to email/CRM later.');">
+            <div class="field">
+              <label>Your Name</label>
+              <input placeholder="e.g., Ahmed / Rahul" required />
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input type="email" placeholder="e.g., you@email.com" required />
+            </div>
+            <div class="field">
+              <label>Service Needed</label>
+              <input placeholder="Logo / Brand Identity / Social / Brochure" />
+            </div>
+            <div class="field">
+              <label>Timeline</label>
+              <input placeholder="e.g., 3 days / 1 week" />
+            </div>
+            <div class="field" style="grid-column:1 / -1">
+              <label>Message</label>
+              <textarea placeholder="Tell us about your business and what you want..." required></textarea>
+            </div>
+            <div style="grid-column:1 / -1; display:flex; gap:10px; flex-wrap:wrap">
+              <button class="btn primary" type="submit">Send Enquiry</button>
+              <a class="btn" href="#pricing">See pricing</a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+          <div>© <span id="year"></span> Zeen Studio — Beauty. Designed.</div>
+          <div style="display:flex; gap:14px">
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#work">Work</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
